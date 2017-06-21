@@ -121,13 +121,10 @@ public class SearchableSpinner extends RelativeLayout implements View.OnClickLis
     }
 
     public SearchableSpinner(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-    }
+        super(context, attrs, defStyleAttr);
 
-    public SearchableSpinner(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         mContext = context;
-        getAttributeSet(attrs, defStyleAttr, defStyleRes);
+        getAttributeSet(attrs, defStyleAttr);
 
         final LayoutInflater factory = LayoutInflater.from(context);
         factory.inflate(R.layout.view_searchable_spinner, this, true);
@@ -142,10 +139,28 @@ public class SearchableSpinner extends RelativeLayout implements View.OnClickLis
         mSpinnerListView.setEmptyView(mEmptyTextView);
     }
 
-    private void getAttributeSet(@Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+//    public SearchableSpinner(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr, @StyleRes int defStyleRes) {
+//        super(context, attrs, defStyleAttr, defStyleRes);
+//        mContext = context;
+//        getAttributeSet(attrs, defStyleAttr, defStyleRes);
+//
+//        final LayoutInflater factory = LayoutInflater.from(context);
+//        factory.inflate(R.layout.view_searchable_spinner, this, true);
+//
+//        mSpinnerListContainer = (LinearLayout) factory.inflate(R.layout.view_list, this, false);
+//        mSpinnerListView = (ListView) mSpinnerListContainer.findViewById(R.id.LstVw_SpinnerListView);
+//        if (mListItemDivider != null) {
+//            mSpinnerListView.setDivider(mListItemDivider);
+//            mSpinnerListView.setDividerHeight(mListDividerSize);
+//        }
+//        mEmptyTextView = (TextView) mSpinnerListContainer.findViewById(R.id.TxtVw_EmptyText);
+//        mSpinnerListView.setEmptyView(mEmptyTextView);
+//    }
+
+    private void getAttributeSet(@Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
         if (attrs != null) {
             try {
-                TypedArray attributes = mContext.getTheme().obtainStyledAttributes(attrs, R.styleable.SearchableSpinner, defStyleAttr, defStyleRes);
+                TypedArray attributes = mContext.getTheme().obtainStyledAttributes(attrs, R.styleable.SearchableSpinner, defStyleAttr,0);
                 mRevealViewBackgroundColor = attributes.getColor(R.styleable.SearchableSpinner_RevealViewBackgroundColor, Color.WHITE);
                 mStartEditTintColor = attributes.getColor(R.styleable.SearchableSpinner_StartSearchTintColor, Color.GRAY);
                 mEditViewBackgroundColor = attributes.getColor(R.styleable.SearchableSpinner_SearchViewBackgroundColor, Color.WHITE);
@@ -229,7 +244,7 @@ public class SearchableSpinner extends RelativeLayout implements View.OnClickLis
             }
         });
         mPopupWindow.setFocusable(false);
-        mPopupWindow.setElevation(DefaultElevation);
+//        mPopupWindow.setElevation(DefaultElevation);
         mPopupWindow.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.spinner_drawable));
 
         mSpinnerListView.setOnItemClickListener(mOnItemSelectedListener);
